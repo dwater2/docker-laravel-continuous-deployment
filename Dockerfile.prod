@@ -13,8 +13,6 @@ RUN composer install \
     && php artisan cache:clear \ 
     && chmod -R 777 storage
 
-RUN composer update laravel/framework
-
 EXPOSE 9000
 
 ENTRYPOINT ["php-fpm"]
