@@ -12,6 +12,10 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec','-t','app', 'composer','install']
 
+- id: "Rodando predis/predis"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec','-t','app', 'composer','require predis/predis'] 
+
 - id: "Copiando .env"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec','-t','app','cp','.env.example','.env']
