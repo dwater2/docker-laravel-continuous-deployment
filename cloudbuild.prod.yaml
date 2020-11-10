@@ -7,7 +7,7 @@ steps:
 - id: "Rodando docker ps"
   name: 'gcr.io/cloud-builders/docker'
   args: ['ps']
-
+  
 - id: "Rodando composer"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec','-t','app','composer','install']
@@ -18,15 +18,15 @@ steps:
 
 - id: "Rodando key:generate"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec','-t','app','php','/var/www/artisan','key:generate']    
+  args: ['exec','-t','app','php','/var/www/artisan','key:generate']  
 
 - id: "Rodando migrations"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec','-t','app','php','/var/www/artisan','migrate']    
+  args: ['exec','-t','app','php','/var/www/artisan','migrate']
 
 - id: "Rodando phpunit"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit','-c','/var/www/phpunit.xml']    
+  args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit','-c','/var/www/phpunit.xml']
 
 - id: "Building image using Dockerfile.prod"
   name: 'gcr.io/cloud-builders/docker'
@@ -35,3 +35,7 @@ steps:
 - id: "Pushing image"
   name: 'gcr.io/cloud-builders/docker'
   args: ['push','gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA']
+
+- id: "Adjusting deployment file - k8s"
+  name: 'gcr.io/cloud-builders/gcloud'
+  args: ['push','gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA']  
