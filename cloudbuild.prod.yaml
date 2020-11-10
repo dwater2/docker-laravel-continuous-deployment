@@ -3,10 +3,6 @@ steps:
 - id: "Rodando docker-compose"
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5'
   args: ['-f','docker-compose.cloudbuild.yaml','up','-d']
-  
-- id: "Rodando composer update"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec','-t','app', 'composer','composer update laravel/framework']
 
 - id: "Rodando composer"
   name: 'gcr.io/cloud-builders/docker'
